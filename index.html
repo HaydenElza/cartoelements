@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://unpkg.com/papercss@1.4.0/dist/paper.min.css">
+
+	<style type="text/css">
+		#header {
+			border-bottom: solid rgba(0,0,0,0.14) 1px;
+		}
+		._1x {
+			max-height: 14rem;
+		}
+		._05x {
+			max-height: 7rem;
+		}
+		table thead tr th, table tbody tr td {
+			text-align: center;
+			border: none;
+		}
+		table tbody tr:last-child td {
+			padding-bottom: 0;
+		}
+	</style>
+</head>
+<body>
+
+<div id="header" class="row">
+  <div class="lg-9 col row margin-none">
+  	<h4 class="margin-none"><b>Carto</b> Elements</h4>
+  </div>
+  <div class="lg-3 col"></div>
+</div>
+<div id="elements" class="col-9 row flex-spaces">
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="./js/tabletop.js"></script>
+<script>
+	window.onload = function() { init() };
+
+	function init() {
+		Tabletop.init( { 
+			key: '1gFZpEDpR2CyCD094Lc8yi63nxFwddJ8ygeKkWD8CTL8',
+			callback: fillElements,
+			simpleSheet: true 
+		} )
+	}
+
+	function showInfo(data, tabletop) {
+		alert("Successfully processed!")
+		console.log(data);
+	}
+
+	function fillElements(data, tabletop) {
+		var htmlString = "";
+		for (var i=0,  dataLen=data.length; i < dataLen; i++) {
+			var htmlString = htmlString.concat('\
+				<div class="col card padding-top-none padding-bottom-none margin" style="width: 20rem;">\
+					<div class="card-body">\
+						<h4 class="card-title">',data[i]['Name'],'</h4>\
+						<p class="card-text row flex-center flex-bottom">\
+							<img class="_1x col-4 col" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.svg" class="no-responsive no-border">\
+							<img class="_05x col-4 col" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.svg" class="no-responsive no-border">\
+						</p>\
+						<div class="row flex-edges flex-bottom">\
+							<table class="col-7">\
+							  <thead>\
+							    <tr>\
+							      <th>1.0x</th>\
+							      <th>0.5x</th>\
+							    </tr>\
+							  </thead>\
+							  <tbody>\
+							    <tr>\
+							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.svg" class="badge success paper-btn padding-small">.svg</a></td>\
+							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.emf" class="badge success paper-btn padding-small">.svg</a></td>\
+							    <tr>\
+							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.svg" class="badge paper-btn padding-small">.emf</a></td>\
+							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.emf" class="badge paper-btn padding-small">.emf</a></td>\
+							    </tr>\
+							  </tbody>\
+							</table>\
+							<a href="https://github.com/HaydenElza/cartoelements/tree/master/north_arrows/',data[i]['Id'],'" class="">github</a>\
+						</div>\
+					</div>\
+				</div>\
+			');
+		};
+		$('.sk-folding-cube').css('display', 'none')
+		$('#elements').html(htmlString);
+	}
+	
+	
+</script>
+
+</body>
+</html>
