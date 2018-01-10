@@ -2,37 +2,82 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" href="https://unpkg.com/papercss@1.4.0/dist/paper.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
 	<style type="text/css">
-		#header {
+		h1, h2, h3, h4, h5, h6, p {
+			color: darkslategrey;
+		}
+		h1 {
+			font-size: 2rem;
+			margin: 1.5rem;
+		}
+		h2 {
+			font-size: 1.75rem;
+		}
+		header {
 			border-bottom: solid rgba(0,0,0,0.14) 1px;
 		}
-		._1x {
-			max-height: 14rem;
+		main {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
 		}
-		._05x {
-			max-height: 7rem;
+		.element {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			grid-template-rows: auto 1fr 1fr auto;
+			grid-template-areas:
+				"name name"
+				"normal empty"
+				"normal small"
+				"links links";
+			margin: 2rem auto;
+			border-top: solid grey 0.75px;
 		}
-		table thead tr th, table tbody tr td {
+		.element-name {
+			grid-area: name;
+		}
+		img {
+			margin: 1rem;
+		}
+		.element-normal {
+			grid-area: normal;
+		}
+		.element-small {
+			grid-area: small;
+		}
+		.element-normal, .element-small {
+			justify-content: center;
+			margin: 0 auto;
+		}
+		.element-links {
+			grid-area: links;
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			grid-gap: 0.2rem;
+			margin: 2rem 0 0 0;
+		}
+		.element-links li a {
+			display: inline;
+			border: solid darkslategrey;
+			border-radius: 3px;
+			font-size: 0.9rem;
+			color: darkslategrey;
 			text-align: center;
-			border: none;
 		}
-		table tbody tr:last-child td {
-			padding-bottom: 0;
+		.element-links li a:hover {
+			color: #e82979;
+			border-color: #e82979;
 		}
 	</style>
 </head>
 <body>
 
-<div id="header" class="row">
-  <div class="lg-9 col row margin-none">
-  	<h4 class="margin-none"><b>Carto</b> Elements</h4>
-  </div>
-  <div class="lg-3 col"></div>
-</div>
-<div id="elements" class="col-9 row flex-spaces">
-</div>
+<header>
+	<h1><b>Carto</b> Elements</h1>
+</header>
+<main>
+</main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="./js/tabletop.js"></script>
@@ -56,43 +101,23 @@
 		var htmlString = "";
 		for (var i=0,  dataLen=data.length; i < dataLen; i++) {
 			var htmlString = htmlString.concat('\
-				<div class="col card padding-top-none padding-bottom-none margin" style="width: 20rem;">\
-					<div class="card-body">\
-						<h4 class="card-title">',data[i]['Name'],'</h4>\
-						<p class="card-text row flex-center flex-bottom">\
-							<img class="_1x col-4 col" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.svg" class="no-responsive no-border">\
-							<img class="_05x col-4 col" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.svg" class="no-responsive no-border">\
-						</p>\
-						<div class="row flex-edges flex-bottom">\
-							<table class="col-7">\
-							  <thead>\
-							    <tr>\
-							      <th>1.0x</th>\
-							      <th>0.5x</th>\
-							    </tr>\
-							  </thead>\
-							  <tbody>\
-							    <tr>\
-							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.svg" class="badge success paper-btn padding-small">.svg</a></td>\
-							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.emf" class="badge success paper-btn padding-small">.svg</a></td>\
-							    <tr>\
-							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.svg" class="badge paper-btn padding-small">.emf</a></td>\
-							      <td><a href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.emf" class="badge paper-btn padding-small">.emf</a></td>\
-							    </tr>\
-							  </tbody>\
-							</table>\
-							<a href="https://github.com/HaydenElza/cartoelements/tree/master/north_arrows/',data[i]['Id'],'" class="">github</a>\
-						</div>\
-					</div>\
+				<div class="element">\
+					<h2 class="element-name">',data[i]['Name'],'</h2>\
+					<img class="element-normal" style="height: ',data[i]['Height']*10,'rem" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.svg"/>\
+					<img class="element-small" style="height: ',data[i]['Height']*5,'rem" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.svg"/>\
+					<ul class="element-links">\
+						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.svg">1.0xSVG</a></li>\
+						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.svg">0.5xSVG</a></li>\
+						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1.0.emf">1.0xEMF</a></li>\
+						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_0.5.emf">0.5xEMF</a></li>\
+						<li><a target="_blank" href="https://github.com/HaydenElza/cartoelements/tree/gh-pages/north_arrows/',data[i]['Id'],'/">SOURCE</a></li>\
+					</ul>\
 				</div>\
 			');
 		};
 		$('.sk-folding-cube').css('display', 'none')
-		$('#elements').html(htmlString);
+		$('main').html(htmlString);
 	}
-	
-	
 </script>
-
 </body>
 </html>
