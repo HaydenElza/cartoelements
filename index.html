@@ -4,7 +4,6 @@
 	<title></title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="css/folding-cube.css">
-
 	<style type="text/css">
 		.sk-folding-cube {
 			position: absolute;
@@ -60,20 +59,25 @@
 			grid-area: links;
 			display: grid;
 			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-			grid-gap: 0.2rem;
+			grid-gap: 1rem;
 			margin: 2rem 0 0 0;
+		}
+		.element-links li {
+			text-align: center;
 		}
 		.element-links li a {
 			display: inline;
-			border: solid darkslategrey;
-			border-radius: 3px;
-			font-size: 0.9rem;
+			font-size: 0.8rem;
 			color: darkslategrey;
 			text-align: center;
+			opacity: 0;
+			transition: opacity 0.1s linear 0.1s;
 		}
 		.element-links li a:hover {
 			color: #e82979;
-			border-color: #e82979;
+		}
+		.element:hover a {
+			opacity: 1;
 		}
 	</style>
 </head>
