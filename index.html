@@ -18,7 +18,8 @@
 			margin: 1.5rem;
 		}
 		h2 {
-			font-size: 1.75rem;
+			font-size: 1.5rem;
+			margin: 1.5rem 0;
 		}
 		header {
 			border-bottom: solid rgba(0,0,0,0.14) 1px;
@@ -31,19 +32,34 @@
 			display: grid;
 			grid-template-columns: 2fr 1fr;
 			grid-template-rows: auto 1fr 1fr auto;
+			margin: 1.5rem auto 0 auto;
+			border-top: solid grey 0.75px;
+		}
+		.north-arrow {
 			grid-template-areas:
 				"name name"
 				"normal empty"
 				"normal small"
 				"links links";
-			margin: 2rem auto;
-			border-top: solid grey 0.75px;
+		}
+		.scale-bar {
+			grid-template-areas:
+				"name name"
+				"small empty"
+				"normal normal"
+				"links links";
 		}
 		.element-name {
 			grid-area: name;
+			opacity: 0;
 		}
 		img {
 			margin: 1rem;
+			align-self: end;
+		}
+		.scale-bar .element-normal,
+		.scale-bar .element-small {
+			margin: 1em 0;
 		}
 		.element-normal {
 			grid-area: normal;
@@ -51,7 +67,8 @@
 		.element-small {
 			grid-area: small;
 		}
-		.element-normal, .element-small {
+		.element-normal,
+		.element-small {
 			justify-content: center;
 			margin: 0 auto;
 		}
@@ -70,13 +87,15 @@
 			font-size: 0.8rem;
 			color: darkslategrey;
 			text-align: center;
-			opacity: 0;
-			transition: opacity 0.1s linear 0.1s;
 		}
 		.element-links li a:hover {
 			color: #e82979;
 		}
-		.element:hover a {
+		.element-links, .element-name {
+			opacity: 0;
+			transition: opacity 0.1s linear 0.1s;
+		}
+		.element:hover .element-links, .element:hover .element-name {
 			opacity: 1;
 		}
 	</style>
@@ -116,20 +135,37 @@
 	function fillElements(data, tabletop) {
 		var htmlString = "";
 		for (var i=0,  dataLen=data.length; i < dataLen; i++) {
-			var htmlString = htmlString.concat('\
-				<div class="element">\
-					<h2 class="element-name">',data[i]['Name'],'</h2>\
-					<img class="element-normal" style="height: ',data[i]['Height']*10,'rem" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_2x.svg"/>\
-					<img class="element-small" style="height: ',data[i]['Height']*5,'rem" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1x.svg"/>\
-					<ul class="element-links">\
-						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_2x.svg" download>2xSVG</a></li>\
-						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1x.svg" download>1xSVG</a></li>\
-						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_2x.emf" download>2xEMF</a></li>\
-						<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1x.emf" download>1xEMF</a></li>\
-						<li><a target="_blank" href="https://github.com/HaydenElza/cartoelements/tree/gh-pages/north_arrows/',data[i]['Id'],'/">SOURCE</a></li>\
-					</ul>\
-				</div>\
-			');
+			if (data[i]['Category']=='northarrow') {
+				var htmlString = htmlString.concat('\
+					<div class="element north-arrow">\
+						<h2 class="element-name">',data[i]['Name'],'</h2>\
+						<img class="element-normal" style="height: ',data[i]['Height']*10,'rem" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_2x.svg"/>\
+						<img class="element-small" style="height: ',data[i]['Height']*5,'rem" src="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1x.svg"/>\
+						<ul class="element-links">\
+							<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_2x.svg" download>2xSVG</a></li>\
+							<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1x.svg" download>1xSVG</a></li>\
+							<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_2x.emf" download>2xEMF</a></li>\
+							<li><a target="_blank" href="http://elza.me/cartoelements/north_arrows/',data[i]['Id'],'/',data[i]['Id'],'_1x.emf" download>1xEMF</a></li>\
+							<li><a target="_blank" href="https://github.com/HaydenElza/cartoelements/tree/gh-pages/north_arrows/',data[i]['Id'],'/">SOURCE</a></li>\
+						</ul>\
+					</div>\
+				');
+			} else {
+				var htmlString = htmlString.concat('\
+					<div class="element scale-bar">\
+						<h2 class="element-name">',data[i]['Name'],'</h2>\
+						<img class="element-small" style="height: ',data[i]['Height']*5,'rem" src="http://elza.me/cartoelements/scale_bars/',data[i]['Id'],'/',data[i]['Id'],'_1x.svg"/>\
+						<img class="element-normal" style="height: ',data[i]['Height']*10,'rem" src="http://elza.me/cartoelements/scale_bars/',data[i]['Id'],'/',data[i]['Id'],'_2x.svg"/>\
+						<ul class="element-links">\
+							<li><a target="_blank" href="http://elza.me/cartoelements/scale_bars/',data[i]['Id'],'/',data[i]['Id'],'_2x.svg" download>2xSVG</a></li>\
+							<li><a target="_blank" href="http://elza.me/cartoelements/scale_bars/',data[i]['Id'],'/',data[i]['Id'],'_1x.svg" download>1xSVG</a></li>\
+							<li><a target="_blank" href="http://elza.me/cartoelements/scale_bars/',data[i]['Id'],'/',data[i]['Id'],'_2x.emf" download>2xEMF</a></li>\
+							<li><a target="_blank" href="http://elza.me/cartoelements/scale_bars/',data[i]['Id'],'/',data[i]['Id'],'_1x.emf" download>1xEMF</a></li>\
+							<li><a target="_blank" href="https://github.com/HaydenElza/cartoelements/tree/gh-pages/scale_bars/',data[i]['Id'],'/">SOURCE</a></li>\
+						</ul>\
+					</div>\
+				');
+			}
 		};
 		$('.sk-folding-cube').css('display', 'none')
 		$('main').html(htmlString);
