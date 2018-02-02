@@ -17,6 +17,19 @@ h2 {
 header {
 	border-bottom: solid rgba(0,0,0,0.14) 1px;
 }
+.navigation {
+	position: absolute;
+    right: 0;
+    top: 0;
+}
+.navigation li {
+	display: inline-block;
+	line-height: 4.5rem;
+	margin-right: 1.5rem;
+}
+.navigation li a {
+	color: inherit;
+}
 main {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
