@@ -1,0 +1,137 @@
+.sk-folding-cube {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+}
+h1, h2, h3, h4, h5, h6, p {
+	color: darkslategrey;
+}
+h1 {
+	font-size: 2rem;
+	margin: 1.5rem;
+}
+h2 {
+	font-size: 1.5rem;
+	margin: 1.5rem 0;
+}
+header {
+	border-bottom: solid rgba(0,0,0,0.14) 1px;
+}
+main {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	min-width: 30rem;
+	max-width: 90rem;
+	margin: auto;
+}
+.element {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	grid-template-rows: auto 1fr 1fr auto;
+	margin: 1.5rem auto 0 auto;
+	border-top: solid grey 0.75px;
+}
+.north-arrow {
+	grid-template-areas:
+		"name name"
+		"normal empty"
+		"normal small"
+		"links links";
+}
+.scale-bar {
+	grid-template-areas:
+		"name name"
+		"small empty"
+		"normal normal"
+		"links links";
+}
+.element-name {
+	grid-area: name;
+	opacity: 0;
+}
+img {
+	margin: 1rem;
+	align-self: end;
+}
+.scale-bar .element-normal,
+.scale-bar .element-small {
+	margin: 1em 0;
+}
+.element-normal {
+	grid-area: normal;
+}
+.element-small {
+	grid-area: small;
+}
+.element-normal,
+.element-small {
+	justify-content: center;
+	margin: 0 auto;
+}
+.element-links {
+	grid-area: links;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-gap: 1rem;
+	margin: 2rem 0 0 0;
+}
+.element-links li {
+	text-align: center;
+}
+.element-links li a {
+	display: inline;
+	font-size: 0.8rem;
+	color: darkslategrey;
+	text-align: center;
+}
+.element-links li a:hover {
+	color: #e82979;
+}
+.element-links, .element-name {
+	opacity: 0;
+	transition: opacity 0.1s linear 0.1s;
+}
+.element:hover .element-links, .element:hover .element-name {
+	opacity: 1;
+}
+@supports not (grid-area: auto) {
+	main {
+		max-width: 30rem;
+		margin: 0 auto;
+	}
+	.element-links {
+		margin: 0 auto;
+		text-align: center;
+	}
+	.element-links li {
+		display: inline-block;
+		margin-right: 2rem;
+	}
+	.element-small {
+		display: none;
+	}
+	.element-normal {
+		display: block;
+		margin: 2rem auto !important;
+	}
+}
+/* Small Screens */
+@media only screen and (max-width: 60rem) {
+	main {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Medium Screens */
+@media only screen and (min-width: 60rem) and (max-width: 90rem) {
+	main {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+/* Large Screens */
+@media only screen and (min-width: 90rem) {
+	main {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
