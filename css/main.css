@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 h1 {
 	font-size: 2rem;
-	margin: 1.5rem;
+	margin: 0;
 }
 h2 {
 	font-size: 1.5rem;
@@ -16,18 +16,15 @@ h2 {
 }
 header {
 	border-bottom: solid rgba(0,0,0,0.14) 1px;
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	grid-template-rows: 1fr;
+	align-items: end;
+	grid-gap: 1.5rem;
+	padding: 1.5rem;
 }
-.navigation {
-	position: absolute;
-    right: 0;
-    top: 0;
-}
-.navigation li {
+.header-link {
 	display: inline-block;
-	line-height: 4.5rem;
-	margin-right: 1.5rem;
-}
-.navigation li a {
 	color: inherit;
 }
 main {
