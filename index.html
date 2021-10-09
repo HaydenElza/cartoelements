@@ -24,24 +24,24 @@
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="./js/tabletop.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js" integrity="sha512-EbdJQSugx0nVWrtyK3JdQQ/03mS3Q1UiAhRtErbwl1YL/+e2hZdlIcSURxxh7WXHTzn83sjlh2rysACoJGfb6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
-	window.onload = function() { init() };
-
 	function init() {
-		Tabletop.init( { 
-			key: '1gFZpEDpR2CyCD094Lc8yi63nxFwddJ8ygeKkWD8CTL8',
-			callback: fillElements,
-			simpleSheet: true 
-		} )
+		Papa.parse('https://docs.google.com/spreadsheets/d/1gFZpEDpR2CyCD094Lc8yi63nxFwddJ8ygeKkWD8CTL8/pub?output=csv', {
+		download: true,
+		header: true,
+		complete: fillElements,
+	})}
+	window.addEventListener('DOMContentLoaded', init)
+
+	function showInfo(results) {
+		console.log(results.data);
 	}
 
-	function showInfo(data, tabletop) {
-		alert("Successfully processed!")
-		console.log(data);
-	}
-
-	function fillElements(data, tabletop) {
+	function fillElements(results) {
+		// showInfo(results)
+		var data = results.data
 		var htmlString = "";
 		for (var i=0,  dataLen=data.length; i < dataLen; i++) {
 			if (data[i]['Category']=='northarrow') {
